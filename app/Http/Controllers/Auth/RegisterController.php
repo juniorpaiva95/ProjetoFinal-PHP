@@ -90,4 +90,13 @@ class RegisterController extends Controller
         return view('backpack::auth.register', $this->data);
     }
 
+    /**
+     * Get the post register / login redirect path.
+     *
+     * @return string
+     */
+    public function redirectPath()
+    {
+        return 'admin/dashboard';
+    }
 }

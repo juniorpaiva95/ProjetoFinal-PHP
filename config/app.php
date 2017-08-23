@@ -185,6 +185,7 @@ return [
         Backpack\CRUD\CrudServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Backpack\PageManager\PageManagerServiceProvider::class,
+        Backpack\PermissionManager\PermissionManagerServiceProvider::class,
     ],
 
     /*
