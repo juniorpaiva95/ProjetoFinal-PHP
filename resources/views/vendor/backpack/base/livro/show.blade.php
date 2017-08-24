@@ -74,17 +74,24 @@
                         {{ $comment->texto  }} - {{ $comment->created_at }}
                             <br>
                         <small>{{ $comment->autor->name }}</small>
+                            <br>
                     @endforeach
                     </ul>
                 </div>
             </div>
 
             <div class="row">
-                <form action="{{ route('crud.comentario.store')  }}" method="POST">
+                <form action="{{ route('crud.comentario.store')  }}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="livro_id" value="{{ $entry->id }}">
-                    <div class="form-group col-lg-12">
+                    <input type="hidden" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::user()->id }}">
+                    <div class="form-group{{ $errors->has('texto') ? ' has-error' : '' }} col-lg-12">
                         <textarea name="texto" class="form-control" id="" cols="20" rows="5"></textarea>
+                        @if ($errors->has('texto'))
+                            <span class="help-block">
+                                        <strong>{{ $errors->first('texto') }}</strong>
+                                    </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12">

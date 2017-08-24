@@ -9,7 +9,7 @@ class Comentario extends Model
 {
     use CrudTrait;
 
-    public $fillable = ['texto', 'livro_id'];
+    public $fillable = ['texto', 'livro_id', 'user_id'];
     // Relacionamento
 
     // Um comentário pertence a um livro

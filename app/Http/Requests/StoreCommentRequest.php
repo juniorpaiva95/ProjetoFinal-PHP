@@ -24,7 +24,7 @@ class StoreCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'texto' => 'required|string'
+            'texto' => 'required|string|min:10'
         ];
     }
 }
