@@ -12,7 +12,7 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | Permission Model
+        | Permission Entities
         |--------------------------------------------------------------------------
         |
         | When using the "HasRoles" trait from this package, we need to know which
@@ -28,7 +28,7 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | Role Model
+        | Role Entities
         |--------------------------------------------------------------------------
         |
         | When using the "HasRoles" trait from this package, we need to know which

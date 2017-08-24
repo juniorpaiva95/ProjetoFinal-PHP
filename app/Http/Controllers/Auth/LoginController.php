@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -64,6 +65,7 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
+            isset($request->remember) ? setcookie("lastLogin", Auth::user()->login) : '';
             return $this->sendLoginResponse($request);
         }
 
@@ -73,6 +75,16 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    /**
+     * Get the post register / login redirect path.
+     *
+     * @return string
+     */
+    public function redirectPath()
+    {
+        return 'admin/dashboard';
     }
 
     /**

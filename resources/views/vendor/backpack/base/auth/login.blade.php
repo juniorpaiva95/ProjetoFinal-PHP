@@ -15,7 +15,7 @@
                             {{--<label class="col-md-4 control-label">{{ trans('backpack::base.email_address') }}</label>--}}
                             <label class="col-md-4 control-label">Login</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="login" value="{{ old('login') }}">
+                                <input type="text" class="form-control" name="login" value="{{ isset($_COOKIE['lastLogin']) ? $_COOKIE['lastLogin'] : old('login') }}">
 
                                 @if ($errors->has('login'))
                                     <span class="help-block">

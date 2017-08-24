@@ -19,16 +19,16 @@ return [
     'logo_mini' => '<b>PHP</b>',
 
     // Developer or company name. Shown in footer.
-    'developer_name' => 'Júnior Paiva',
+    'developer_name' => ['Júnior Paiva', 'Lucas Dantas', 'Renan Matias'],
 
     // Developer website. Link in footer.
-    'developer_link' => 'http://github.com/juniorpaiva95',
+    'developer_link' => 'https://github.com/juniorpaiva95/ProjetoFinal-PHP',
 
     // Show powered by Laravel Backpack in the footer?
     'show_powered_by' => false,
 
     // The AdminLTE skin. Affects menu color and primary/secondary colors used throughout the application.
-    'skin' => 'skin-blue',
+    'skin' => 'skin-purple',
     // Options: skin-black, skin-blue, skin-purple, skin-red, skin-yellow, skin-green, skin-blue-light, skin-black-light, skin-purple-light, skin-green-light, skin-red-light, skin-yellow-light
 
     // Date & Datetime Format Syntax: https://github.com/jenssegers/date#usage
@@ -68,12 +68,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | User Model
+    | User Entities
     |--------------------------------------------------------------------------
     */
 
     // Fully qualified namespace of the User model
-    'user_model_fqn' => '\App\User',
+    'user_model_fqn' => \App\Entities\User::class,
 
     /*
     |--------------------------------------------------------------------------

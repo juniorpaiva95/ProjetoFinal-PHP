@@ -19,5 +19,14 @@ Route::group(['prefix'=> 'admin'],function(){
     Route::auth();
 });
 
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function()
+{
+    // Backpack\CRUD: Define the resources for the entities you want to CRUD.
+    CRUD::resource('livro', 'LivroController');
+    CRUD::resource('comentario', 'ComentarioController');
+
+    // [...] other routes
+});
+
 Route::get('{page}/{subs?}', ['uses' => 'PageController@index'])
     ->where(['page' => '^((?!admin).)*$', 'subs' => '.*']);
