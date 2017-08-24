@@ -33,9 +33,12 @@
                 <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
               </ul>
             </li>
-          @endif
+            <li><a href="{{ url('admin/livro') }}"><i class="fa fa-book"></i> <span>Gerenciar Livros</span></a></li>
+        @endif
+          @if(\Illuminate\Support\Facades\Auth::user()->hasRole('Comentarista'))
+            <li><a href="{{ url('admin/livro-lido') }}"><i class="fa fa-book"></i> <span>Meu Acervo</span></a></li>
+        @endif
 
-          <li><a href="{{ url('admin/livro') }}"><i class="fa fa-book"></i> <span>Gerenciar Livros</span></a></li>
           <!-- ======================================= -->
           <li class="header">{{ trans('backpack::base.user') }}</li>
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin').'/logout') }}"><i class="fa fa-sign-out"></i> <span>{{ trans('backpack::base.logout') }}</span></a></li>

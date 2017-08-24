@@ -22,4 +22,6 @@ class Livro extends Model
     {
         return $this->hasMany(Comentario::class);
     }
+
+
 }

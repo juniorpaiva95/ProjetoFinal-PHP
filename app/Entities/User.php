@@ -22,7 +22,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'login', 'password', 'cpf', 'email',
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -43,6 +42,10 @@ class User extends Authenticatable
         $this->notify(new ResetPasswordNotification($token));
     }
 
+    // Relacionamento
+    public function livrosLidos() {
+        return $this->hasMany(LivroLido::class);
+    }
 //    public function getAuthIdentifier()
 //    {
 //

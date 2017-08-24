@@ -30,22 +30,46 @@
         <h3>Você está pesquisando por: {{ $_GET['s'] }}</h3>
     @endif
 
-
-    <div class="row">
+    <div class="">
         @if(isset($livros))
-            @foreach($livros as $livro)
-                <div class="col-lg-3">
-                    <div class="thumbnail">
-                        <img src="http://3.bp.blogspot.com/_k4DgxQsoKuo/TGsRZIJJapI/AAAAAAAAACE/hH4NlEdJ81g/s1600/livros2.gif" alt="...">
-                        <div class="caption">
-                            <h3>{{ $livro->titulo }}</h3>
-                            <p>Assunto: {{ $livro->assunto }}</p>
-                            <p>Editora: {{ $livro->editora }}</p>
-                            <p><a href="{{ route('crud.livro.show', $livro->id) }}" class="btn btn-primary" role="button">Visualizar</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+            @foreach($livros->chunk(4) as $chunk)
+                <div class="row">
+                    @foreach($chunk as $livro)
+                        <div class="col-lg-3">
+                            <div class="thumbnail">
+                                <img src="http://3.bp.blogspot.com/_k4DgxQsoKuo/TGsRZIJJapI/AAAAAAAAACE/hH4NlEdJ81g/s1600/livros2.gif" alt="...">
+                                <div class="caption">
+                                    <h3>{{ $livro->titulo }}</h3>
+                                    <p>Assunto: {{ $livro->assunto }}</p>
+                                    <p>Editora: {{ $livro->editora }}</p>
+                                    <p>
+                                        <a href="{{ route('crud.livro.show', $livro->id) }}" class="btn btn-primary" role="button">Visualizar</a>
+                                    @if(\Illuminate\Support\Facades\Auth::check()
+                                        && \Illuminate\Support\Facades\Auth::user()->hasRole('Comentarista')
+                                         && \Illuminate\Support\Facades\Auth::user()->livrosLidos->where('livro_id',$livro->id)->first() == null
+                                    )
+                                        <form action="{{ route('crud.livro-lido.store') }}" method="POST">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="livro_id" value="{{$livro->id}}">
+                                            <input type="hidden" name="user_id" value="{{\Illuminate\Support\Facades\Auth::user()->id}}">
+                                            <input type="submit" class="btn btn-default" value="Add ao acervo">
+                                        </form>
+
+                                        @endif
+
+                                        @if(\Illuminate\Support\Facades\Auth::user()->livrosLidos->where('livro_id',$livro->id)->first() != null)
+                                            <button class="btn btn-danger">REMOVER</button>
+                                        @endif
+                                        </p>
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             @endforeach
+            <div class="text-center">{{ $livros->links() }}</div>
+
         @endif
 
     </div>

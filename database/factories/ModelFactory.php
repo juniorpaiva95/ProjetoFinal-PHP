@@ -22,3 +22,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(\App\Entities\Livro::class, function (\Faker\Generator $faker) {
+    return [
+        'titulo' => $faker->catchPhrase,
+        'editora' => $faker->company,
+        'isbn' => $faker->isbn10,
+        'paginas' => $faker->numberBetween($min = 100, $max = 500),
+        'ano' => $faker->numberBetween($min = 1990, $max = 2017),
+        'assunto' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+    ];
+});

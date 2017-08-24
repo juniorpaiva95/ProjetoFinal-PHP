@@ -26,6 +26,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function()
     // Backpack\CRUD: Define the resources for the entities you want to CRUD.
     CRUD::resource('livro', 'LivroController', ['except'=> 'show']);
     CRUD::resource('comentario', 'ComentarioController');
+    CRUD::resource('livro-lido', 'LivroLidoController');
 
     // [...] other routes
 });

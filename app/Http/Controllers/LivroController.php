@@ -69,7 +69,7 @@ class LivroController extends CrudController
     public function searchPesquisador(Request $request)
     {
         $livros = Livro::where('titulo', 'LIKE','%'.$request->s.'%')
-            ->orWhere('editora', 'LIKE', '%'. $request->s . '%')->paginate(10);
+            ->orWhere('editora', 'LIKE', '%'. $request->s . '%')->paginate(8);
         return view('welcome', ['livros'=>$livros]);
     }
 }
