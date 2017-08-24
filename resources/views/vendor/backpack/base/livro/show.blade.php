@@ -58,7 +58,7 @@
                 </div>
                 <div class="form-group col-lg-3">
                     <label for="">Data de Cadastro</label>
-                    <input class="form-control" type="text" value="{{ $entry->created_at }}" readonly>
+                    <input class="form-control" type="text" value="{{ $entry->created_at->format('d/m/Y H:m:s') }}" readonly>
                 </div>
 
             </div>
@@ -70,38 +70,40 @@
                 </div>
                 <div class="form-group col-lg-12">
                     <ul>
-                    @foreach($entry->comments as $comment)
-                        {{ $comment->texto  }} - {{ $comment->created_at }}
-                            <br>
-                        <small>{{ $comment->autor->name }}</small>
-                            <br>
-                    @endforeach
+                        @foreach($entry->comments as $comment)
+                            <p>
+                                {{ $comment->texto  }} - {{ $comment->created_at->format('d/m/Y H:m:s') }}
+                                <br>
+                                <small>{{ $comment->autor->name }}</small>
+                            </p>
+                        @endforeach
                     </ul>
                 </div>
             </div>
-
-            <div class="row">
-                <form action="{{ route('crud.comentario.store')  }}" method="post">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="livro_id" value="{{ $entry->id }}">
-                    <input type="hidden" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::user()->id }}">
-                    <div class="form-group{{ $errors->has('texto') ? ' has-error' : '' }} col-lg-12">
-                        <textarea name="texto" class="form-control" id="" cols="20" rows="5"></textarea>
-                        @if ($errors->has('texto'))
-                            <span class="help-block">
+            @if(Auth::check() && \Illuminate\Support\Facades\Auth::user()->can('comentar-livro'))
+                <div class="row">
+                    <form action="{{ route('crud.comentario.store')  }}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="livro_id" value="{{ $entry->id }}">
+                        <input type="hidden" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::user()->id }}">
+                        <div class="form-group{{ $errors->has('texto') ? ' has-error' : '' }} col-lg-12">
+                            <textarea name="texto" class="form-control" id="" cols="20" rows="5"></textarea>
+                            @if ($errors->has('texto'))
+                                <span class="help-block">
                                         <strong>{{ $errors->first('texto') }}</strong>
                                     </span>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-12">
-                            <button type="submit" class="btn btn-primary">
-                                Comentar
-                            </button>
+                            @endif
                         </div>
-                    </div>
-                </form>
-            </div>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary">
+                                    Comentar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            @endif
         </div><!-- /.box-body -->
     </div><!-- /.box -->
 

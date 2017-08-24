@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Livro;
 use App\Http\Requests\StoreBookRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Illuminate\Http\Request;
@@ -63,5 +64,12 @@ class LivroController extends CrudController
     public function update(Request $request)
     {
         return parent::updateCrud();
+    }
+
+    public function searchPesquisador(Request $request)
+    {
+        $livros = Livro::where('titulo', 'LIKE','%'.$request->s.'%')
+            ->orWhere('editora', 'LIKE', '%'. $request->s . '%')->paginate(10);
+        return view('welcome', ['livros'=>$livros]);
     }
 }

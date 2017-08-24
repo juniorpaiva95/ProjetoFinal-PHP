@@ -14,6 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/buscarLivro', 'LivroController@searchPesquisador');
+CRUD::resource('livro', 'LivroController', ['only'=> 'show']);
 
 Route::group(['prefix'=> 'admin'],function(){
     Route::auth();
@@ -22,7 +24,7 @@ Route::group(['prefix'=> 'admin'],function(){
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function()
 {
     // Backpack\CRUD: Define the resources for the entities you want to CRUD.
-    CRUD::resource('livro', 'LivroController');
+    CRUD::resource('livro', 'LivroController', ['except'=> 'show']);
     CRUD::resource('comentario', 'ComentarioController');
 
     // [...] other routes
